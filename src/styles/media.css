@@ -1,0 +1,333 @@
+/* たのしみ（見たい映画、やりかけのゲームなど）。色は種類の色だけを左端に差す */
+
+.media-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.media-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.media-heading {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.media-summary {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.media-add {
+  max-width: 640px;
+}
+
+.media-add .media-kind-select {
+  flex: 0 0 auto;
+  width: 120px;
+}
+
+.media-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: start;
+}
+
+.media-column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px;
+  border-radius: var(--radius-card);
+  background: var(--surface-sunken);
+}
+
+.media-column h3,
+.media-finished-group h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0 2px 2px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* いま手を付けているものが一番目に入るように */
+.media-column.is-playing h3 {
+  color: var(--text);
+}
+
+.media-column-count {
+  color: var(--text-faint);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.media-empty {
+  margin: 0;
+  padding: 10px 4px;
+  color: var(--text-faint);
+  font-size: 12px;
+  text-align: center;
+}
+
+.media-finished {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.media-finished > .btn {
+  align-self: flex-start;
+}
+
+.media-finished-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+  border-radius: var(--radius-card);
+}
+
+/* ドラッグで上に来た受け皿 */
+.media-column.is-over,
+.media-finished-group.is-over {
+  box-shadow: inset 0 0 0 2px var(--accent-soft);
+}
+
+.media-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.media-card-wrap.is-dragging {
+  opacity: 0.35;
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px;
+}
+
+/* --- カード --- */
+
+.media-card {
+  --kind-color: var(--border-strong);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--kind-color);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.media-card:hover {
+  border-color: var(--border-strong);
+  border-left-color: var(--kind-color);
+}
+
+.media-card.is-selected {
+  border-color: var(--accent);
+  border-left-color: var(--kind-color);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.media-card.is-dropped {
+  opacity: 0.6;
+}
+
+.media-main {
+  display: flex;
+  align-items: flex-start;
+  padding-left: 3px;
+}
+
+.media-main > .drag-handle {
+  margin-top: 6px;
+}
+
+.media-card.is-overlay .drag-handle {
+  color: var(--text-muted);
+  cursor: grabbing;
+}
+
+.media-open {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+  padding: 7px 10px 4px 4px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.media-open:hover {
+  background: var(--surface-hover);
+}
+
+.media-title {
+  overflow-wrap: break-word;
+  font-weight: 600;
+}
+
+.media-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.media-where {
+  color: var(--text-faint);
+}
+
+.media-foot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  /* 持ち手の分だけ下げて、題名の位置にそろえる */
+  padding: 2px 6px 4px 23px;
+}
+
+.media-foot-spacer {
+  flex: 1;
+}
+
+.media-unkind {
+  color: var(--text-faint);
+  font-size: 11px;
+}
+
+/* --- 評価 --- */
+
+.rating {
+  color: var(--warn);
+  font-size: 12px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.rating-off {
+  color: var(--border-strong);
+}
+
+.rating-input {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.rating-input button {
+  padding: 0 2px;
+  border: 0;
+  background: transparent;
+  color: var(--border-strong);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.rating-input button.is-on {
+  color: var(--warn);
+}
+
+.rating-input button:hover {
+  color: var(--warn);
+}
+
+/* 状態は 5 つあるので、詳細パネルの幅に収まるよう折り返す */
+.media-status-picker {
+  flex-wrap: wrap;
+}
+
+/* --- 種類の編集 --- */
+
+.kind-dialog {
+  width: min(560px, 100%);
+}
+
+.kind-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.kind-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kind-list .field {
+  flex: 1;
+  min-width: 0;
+}
+
+.kind-swatch {
+  flex-shrink: 0;
+  width: 10px;
+  height: 24px;
+  border-radius: 2px;
+}
+
+.kind-colors {
+  display: flex;
+  gap: 3px;
+}
+
+.kind-colors button {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 50%;
+}
+
+.kind-colors button.is-on {
+  border-color: var(--text);
+}
+
+.kind-used {
+  flex-shrink: 0;
+  min-width: 2.5em;
+  color: var(--text-faint);
+  font-size: 12px;
+  text-align: right;
+}
+
+.kind-dialog-actions {
+  margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+  .media-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .kind-list li {
+    flex-wrap: wrap;
+  }
+
+  .kind-list .field {
+    flex-basis: calc(100% - 18px);
+  }
+}

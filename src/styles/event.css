@@ -1,0 +1,313 @@
+/* イベント（予定）。タスクの段階色は使わず、アクセント 1 色で統一する */
+
+.event-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 760px;
+}
+
+.event-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.event-heading {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.event-next {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.event-add .field.num {
+  flex: 0 0 auto;
+  width: 148px;
+}
+
+.event-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.event-section h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.event-section .btn {
+  align-self: flex-start;
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* --- イベントのカード --- */
+
+.event-card {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.event-card:hover {
+  border-color: var(--border-strong);
+}
+
+.event-card.is-selected {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.event-card.is-today {
+  border-left-color: var(--warn);
+}
+
+.event-card.is-past {
+  border-left-color: var(--border-strong);
+  opacity: 0.6;
+}
+
+/* カード全体をボタンにすると中にチェックボックスを置けないので、見出し行だけを押せるようにする */
+.event-open {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.event-open:hover {
+  background: var(--surface-hover);
+}
+
+.event-daybox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 48px;
+  line-height: 1.3;
+}
+
+.event-md {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.event-card.is-today .event-md {
+  color: var(--warn);
+}
+
+.event-wd {
+  color: var(--text-faint);
+  font-size: 11px;
+}
+
+.event-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.event-name {
+  overflow-wrap: break-word;
+  font-weight: 600;
+}
+
+.event-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.event-count {
+  color: var(--text-muted);
+}
+
+.event-count.is-today {
+  color: var(--warn);
+  font-weight: 700;
+}
+
+.event-count.is-past {
+  color: var(--text-faint);
+}
+
+/* --- 紐づいたタスクの進み具合 --- */
+
+.event-bar {
+  display: flex;
+  height: 4px;
+  margin: 0 10px;
+  background: var(--surface-sunken);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.event-bar-fill {
+  background: var(--ok);
+  min-width: 0;
+}
+
+.event-tasklist {
+  margin: 6px 0 8px;
+  padding: 0 10px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.event-tasklist:empty {
+  display: none;
+}
+
+.event-tasklist li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.event-tasklist li:hover {
+  background: var(--surface-hover);
+}
+
+.event-tasklist li button {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  overflow-wrap: break-word;
+}
+
+.event-tasklist li.is-done button {
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
+.event-tasklist .task-check {
+  accent-color: var(--accent);
+}
+
+/* --- カードに出すイベントのバッジ --- */
+
+.event-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  padding: 2px 6px;
+  border-radius: var(--radius-chip);
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--accent);
+  background: var(--accent-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.event-badge-left {
+  color: var(--text-muted);
+}
+
+.event-badge.is-today {
+  color: var(--warn);
+  background: var(--warn-soft);
+  font-weight: 600;
+}
+
+.event-badge.is-today .event-badge-left {
+  color: var(--warn);
+}
+
+.event-badge.is-past {
+  color: var(--text-faint);
+  background: var(--surface-sunken);
+}
+
+.event-badge.is-past .event-badge-left {
+  color: var(--text-faint);
+}
+
+@media (max-width: 700px) {
+  .event-add .field.num {
+    width: 130px;
+  }
+}
+
+/* --- 中止と定期 --- */
+
+.event-flag {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 0 5px;
+  border-radius: var(--radius-chip);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  vertical-align: 1px;
+}
+
+.event-flag.is-cancelled {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.event-card.is-cancelled {
+  border-left-color: var(--border-strong);
+  opacity: 0.6;
+}
+
+.event-card.is-cancelled .event-name {
+  text-decoration: line-through;
+  text-decoration-color: var(--text-faint);
+}
+
+.series-card {
+  border-left-style: dashed;
+}
+
+.editor-notice.is-cancelled {
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: var(--radius-chip);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.editor-subtasks li.is-cancelled button {
+  color: var(--text-faint);
+  text-decoration: line-through;
+}

@@ -1,0 +1,407 @@
+/* 段階ごとの色。近い予定ほど濃く、遠い予定ほど霞む */
+.stage-now {
+  --stage: var(--stage-now);
+  --stage-soft: var(--stage-now-soft);
+}
+
+.stage-soon {
+  --stage: var(--stage-soon);
+  --stage-soft: var(--stage-soon-soft);
+}
+
+.stage-later {
+  --stage: var(--stage-later);
+  --stage-soft: var(--stage-later-soft);
+}
+
+.board-kanban {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.board-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.stage-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.stage-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 2px 6px;
+}
+
+.stage-bar {
+  width: 14px;
+  height: 3px;
+  background: var(--stage);
+}
+
+.stage-name {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--stage);
+}
+
+.stage-count {
+  color: var(--text-faint);
+  font-size: 12px;
+}
+
+.stage-total {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.stage-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+  /* 下の余白は、他の段階からドラッグしてきたタスクを末尾に落とす場所 */
+  padding-bottom: 48px;
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--stage);
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  background: var(--surface-sunken);
+  min-height: 120px;
+}
+
+.board-list .stage-body,
+.board-grid .stage-body {
+  min-height: 0;
+}
+
+/* グリッド：段階は縦に積み、カードは幅に合わせて 1 行に 4 枚前後並べる */
+.board-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.board-grid .stage-body,
+.board-grid .done-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  align-items: start;
+}
+
+.board-grid .stage-body {
+  gap: 8px;
+}
+
+/* 追加欄・空表示・完了済みの区切りは行いっぱいに */
+.board-grid .stage-body > .quick-add,
+.board-grid .stage-body > .empty,
+.board-grid .stage-body > .done-section,
+.board-grid .done-heading {
+  grid-column: 1 / -1;
+}
+
+.stage-column.is-over .stage-body {
+  background: var(--stage-soft);
+  border-color: var(--stage);
+}
+
+/* --- タスクカード --- */
+
+.task-card {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--stage);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.task-card:hover {
+  border-color: var(--border-strong);
+}
+
+.task-card.is-selected {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.task-card.is-high .task-title {
+  font-weight: 700;
+}
+
+.task-card.is-done {
+  opacity: 0.55;
+}
+
+.task-card.is-done .task-title {
+  text-decoration: line-through;
+}
+
+.task-card.is-overlay {
+  box-shadow: 0 8px 20px rgb(0 0 0 / 22%);
+}
+
+.task-card-wrap.is-dragging {
+  opacity: 0.35;
+}
+
+.task-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.task-check {
+  margin: 3px 0 0;
+  width: 15px;
+  height: 15px;
+  accent-color: var(--stage);
+  flex-shrink: 0;
+}
+
+.task-title {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.subtask-toggle {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-left: 22px;
+}
+
+.task-meta:empty {
+  display: none;
+}
+
+.meta-estimate {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* 配置日。タイトルの横に添えるので、枠だけの控えめなバッジにする */
+.meta-scheduled {
+  flex-shrink: 0;
+  padding: 0 5px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-chip);
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.task-main > .meta-scheduled {
+  margin-top: 2px;
+}
+
+.prio {
+  padding: 2px 6px;
+  border-radius: var(--radius-chip);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.prio-high {
+  color: var(--danger);
+  background: var(--danger-soft);
+  font-weight: 600;
+}
+
+.prio-low {
+  color: var(--text-faint);
+  background: var(--surface-sunken);
+}
+
+/* --- サブタスク。カードにせず、親に連なる行として見せる --- */
+
+.subtask-list {
+  margin: 8px 0 2px 22px;
+  border-left: 2px solid var(--border);
+  padding-left: 8px;
+}
+
+.subtask-list.is-over {
+  border-left-color: var(--stage);
+  background: var(--stage-soft);
+}
+
+.subtask-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 4px;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.subtask-row:hover {
+  background: var(--surface-hover);
+}
+
+.subtask-row.is-selected {
+  background: var(--accent-soft);
+}
+
+.subtask-row.is-dragging {
+  opacity: 0.35;
+}
+
+.subtask-row.is-done .subtask-title {
+  text-decoration: line-through;
+  color: var(--text-faint);
+}
+
+.subtask-title {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.subtask-add {
+  margin-top: 4px;
+}
+
+.subtask-add .field {
+  height: 26px;
+  font-size: 13px;
+}
+
+.add-subtask {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+/* --- 追加欄・完了済み --- */
+
+.quick-add {
+  display: flex;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+/* 列の先頭に置くぶんは、上の余白を足さない */
+.stage-body > .quick-add {
+  margin-top: 0;
+}
+
+.quick-add .field {
+  flex: 1;
+}
+
+.quick-add button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.done-section {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.done-section .add-subtask,
+.done-section .quick-add,
+.done-section .subtask-add {
+  display: none;
+}
+
+.done-heading {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-faint);
+}
+
+@media (max-width: 900px) {
+  .board-kanban {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- 並べ替えの持ち手 --- */
+
+.drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 22px;
+  margin: -1px -3px 0 -4px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-faint);
+  cursor: grab;
+  /* タッチでもスクロールに奪われず掴めるように */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.drag-handle svg {
+  fill: currentColor;
+}
+
+.drag-handle:hover,
+.drag-handle:focus-visible {
+  color: var(--text-muted);
+  background: var(--surface-hover);
+}
+
+.drag-handle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.drag-handle.is-small {
+  height: 18px;
+}
+
+.task-card.is-overlay .drag-handle {
+  color: var(--text-muted);
+  cursor: grabbing;
+}
+
+/* ドラッグ中は画面全体で文字選択を止め、掴んでいるカーソルを保つ */
+body.is-dragging-task,
+body.is-dragging-task * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  cursor: grabbing !important;
+}
+
+/* 持ち手のあるカードは、メタ情報とサブタスクをタイトルの位置にそろえる */
+.task-card:has(> .task-main > .drag-handle) > .task-meta {
+  margin-left: 38px;
+}
+
+.task-card:has(> .task-main > .drag-handle) .subtask-list {
+  margin-left: 38px;
+}

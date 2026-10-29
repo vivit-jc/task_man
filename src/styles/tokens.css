@@ -1,0 +1,83 @@
+/*
+ * 段階を「時間の遠近」で表す配色。
+ * 近い予定ほど暖色で濃く、遠い予定ほど寒色で霞む。
+ */
+:root {
+  color-scheme: light;
+
+  --bg: #eef0f3;
+  --surface: #ffffff;
+  --surface-sunken: #e6e9ee;
+  --surface-hover: #f4f6f9;
+  --border: #d3d8e0;
+  --border-strong: #b6bdc9;
+  --text: #1b1f27;
+  --text-muted: #666e7e;
+  --text-faint: #8d95a3;
+
+  --accent: #2a5caa;
+  --accent-soft: #dde6f5;
+  --accent-text: #ffffff;
+
+  --stage-now: #c8442c;
+  --stage-now-soft: #f8e4df;
+  --stage-soon: #1f7a6b;
+  --stage-soon-soft: #dcefeb;
+  --stage-later: #6b6f8c;
+  --stage-later-soft: #e5e6ee;
+
+  --danger: #b3261e;
+  --danger-soft: #f7e0de;
+  --warn: #9a6400;
+  --warn-soft: #fbeed3;
+  --ok: #1f7a4d;
+
+  /* 週末。カレンダーの慣習どおり土曜は青、日曜は赤に寄せる */
+  --saturday-bg: #e7eefa;
+  --sunday-bg: #fbeaea;
+  --today-bg: #e3f2e7;
+
+  --radius-card: 6px;
+  --radius-chip: 3px;
+  --gap: 12px;
+
+  --font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
+    Meiryo, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --header-h: 52px;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #14161b;
+  --surface: #1c2027;
+  --surface-sunken: #101317;
+  --surface-hover: #242933;
+  --border: #2d333d;
+  --border-strong: #3d4552;
+  --text: #e4e7ec;
+  --text-muted: #9aa2b1;
+  --text-faint: #767e8d;
+
+  --accent: #6f9ee0;
+  --accent-soft: #23334a;
+  --accent-text: #0f1318;
+
+  --stage-now: #e4785f;
+  --stage-now-soft: #3a241f;
+  --stage-soon: #4fb5a0;
+  --stage-soon-soft: #1a2f2c;
+  --stage-later: #9298b8;
+  --stage-later-soft: #262936;
+
+  --danger: #e0685d;
+  --danger-soft: #3a211f;
+  --warn: #d2a24a;
+  --warn-soft: #332a17;
+  --ok: #5cbb86;
+
+  --saturday-bg: #1a2330;
+  --sunday-bg: #2b1c1e;
+  --today-bg: #1a2c21;
+}

@@ -1,0 +1,312 @@
+.month-view {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 1000px;
+}
+
+.month-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.month-title {
+  margin: 0 0 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* 今月から 3 ヶ月先までのジャンプ */
+.month-months {
+  margin-left: 4px;
+}
+
+.month-total {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.month-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  color: var(--text-faint);
+  font-size: 11px;
+  text-align: center;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.month-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  min-height: 96px;
+  padding: 6px 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  text-align: left;
+  overflow: hidden;
+}
+
+.month-cell:hover {
+  border-color: var(--accent);
+}
+
+.month-cell.is-saturday {
+  background: var(--saturday-bg);
+}
+
+.month-cell.is-sunday {
+  background: var(--sunday-bg);
+}
+
+/* 前後の月のセルは週末でも灰色のまま。当月との境目を保つ */
+.month-cell.is-outside {
+  background: var(--surface-sunken);
+  color: var(--text-faint);
+}
+
+.month-cell.is-today {
+  border-color: var(--accent);
+  background: var(--today-bg);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.month-daynum {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* セル内のイベント名。セル自体が button なので、ここは押せない span にしてある */
+.month-events {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  margin: 1px 0;
+}
+
+/*
+ * 複数日のイベントは、かかっている日すべてに出る。
+ * 始まる日と終わる日だけ角を丸め、間の日はセルの端まで伸ばして帯に見せる。
+ */
+.month-event {
+  width: 100%;
+  padding: 0 3px;
+  margin: 0 -7px;
+  width: calc(100% + 14px);
+  border-radius: 0;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 11px;
+  line-height: 1.45;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.month-event.is-start {
+  margin-left: 0;
+  width: calc(100% + 7px);
+  padding-left: 3px;
+  border-radius: 2px 0 0 2px;
+}
+
+.month-event.is-end {
+  margin-right: 0;
+  width: calc(100% + 7px);
+  border-radius: 0 2px 2px 0;
+}
+
+.month-event.is-start.is-end {
+  margin: 0;
+  width: 100%;
+  border-radius: 2px;
+}
+
+/* 続きの日はタイトルを繰り返さず、帯だけが伸びているように見せる */
+.month-event:not(.is-labelled) {
+  color: transparent;
+}
+
+.month-cell.is-outside .month-event {
+  opacity: 0.6;
+}
+
+.month-more {
+  font-size: 10px;
+  color: var(--text-faint);
+}
+
+.month-count {
+  font-size: 12px;
+  color: var(--text);
+}
+
+.month-done {
+  color: var(--ok);
+}
+
+.month-time {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.month-load {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  min-width: 4px;
+  background: var(--accent);
+  opacity: 0.55;
+}
+
+.month-cell.is-over-capacity .month-load {
+  background: var(--danger);
+  opacity: 0.8;
+}
+
+.month-cell.is-over-capacity .month-time {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* --- 日のサマリー（マウスを乗せたときに出る） --- */
+
+.month-tip {
+  position: fixed;
+  z-index: 45;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 290px;
+  padding: 8px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 18%);
+  font-size: 12px;
+  line-height: 1.5;
+  /* 乗せている本人の邪魔をしない */
+  pointer-events: none;
+}
+
+.month-tip-head {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.month-tip-event {
+  margin-bottom: 2px;
+  padding: 1px 5px;
+  border-radius: var(--radius-chip);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 11px;
+}
+
+.month-tip-period {
+  color: var(--text-muted);
+}
+
+.month-tip-list {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.month-tip-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.month-tip-row.is-child {
+  padding-left: 14px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.month-tip-mark {
+  flex-shrink: 0;
+  color: var(--text-faint);
+}
+
+.month-tip-row.is-done .month-tip-mark,
+.month-tip-list li.is-done .month-tip-mark {
+  color: var(--ok);
+}
+
+.month-tip-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.month-tip-row.is-done .month-tip-title,
+.month-tip-list li.is-done > .month-tip-row > .month-tip-title {
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
+.month-tip-time {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.month-tip-rest,
+.month-tip-foot {
+  margin-top: 5px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.month-tip-foot {
+  padding-top: 5px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 700px) {
+  .month-cell {
+    min-height: 72px;
+    padding: 4px;
+  }
+
+  .month-time {
+    display: none;
+  }
+
+  /* 狭い画面ではイベントは 1 件だけ */
+  .month-event:nth-child(n + 2),
+  .month-more {
+    display: none;
+  }
+}
+
+.month-event.is-cancelled {
+  background: var(--surface-sunken);
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
+.month-tip-event.is-cancelled {
+  color: var(--text-faint);
+  text-decoration: line-through;
+}

@@ -1,0 +1,547 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* --- ヘッダ --- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  height: var(--header-h);
+  padding: 0 14px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-right: 6px;
+}
+
+.topbar-spacer {
+  flex: 1;
+}
+
+.view-tabs {
+  display: flex;
+  gap: 2px;
+}
+
+.view-tab {
+  height: 30px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.view-tab:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.view-tab.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.search {
+  width: 220px;
+}
+
+/* --- 絞り込み行 --- */
+
+.filterbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  padding: 7px 14px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.filter-tags,
+.filter-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filter-hint {
+  color: var(--text-faint);
+  font-size: 12px;
+}
+
+.inline-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.inline-field .label {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.segmented button {
+  height: 28px;
+  padding: 0 10px;
+  border: 0;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.segmented button:last-child {
+  border-right: 0;
+}
+
+.segmented button:hover {
+  background: var(--surface-hover);
+}
+
+.segmented button.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* --- 本体 --- */
+
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  padding: 14px;
+}
+
+/* --- タグ・バッジ --- */
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-chip);
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--tag-color);
+  background: color-mix(in srgb, var(--tag-color) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tag-color) 35%, transparent);
+}
+
+.tag-sm {
+  padding: 3px 6px;
+}
+
+.tag-md {
+  padding: 5px 8px;
+  font-size: 12px;
+}
+
+.tag-button {
+  cursor: pointer;
+}
+
+.tag-button.is-active {
+  background: var(--tag-color);
+  border-color: var(--tag-color);
+  color: #fff;
+}
+
+/* 整理モードのタグ。名前の右に削除の × を出す */
+.tag-removable {
+  gap: 4px;
+  padding-right: 3px;
+}
+
+.tag-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--tag-color) 22%, transparent);
+  color: var(--tag-color);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tag-remove:hover {
+  background: var(--tag-color);
+  color: #fff;
+}
+
+.due-badge {
+  padding: 2px 6px;
+  border-radius: var(--radius-chip);
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--text-muted);
+  background: var(--surface-sunken);
+}
+
+.due-overdue {
+  color: var(--danger);
+  background: var(--danger-soft);
+  font-weight: 600;
+}
+
+.due-today {
+  color: var(--warn);
+  background: var(--warn-soft);
+  font-weight: 600;
+}
+
+.due-soon {
+  color: var(--warn);
+  background: transparent;
+  border: 1px solid var(--warn-soft);
+}
+
+/* --- 詳細パネル --- */
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  width: 336px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+}
+
+.editor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.editor-title {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.editor-body {
+  flex: 1;
+  overflow: auto;
+  padding: 12px 14px 20px;
+}
+
+.editor-body .label {
+  margin-top: 14px;
+}
+
+.editor-body .label:first-of-type {
+  margin-top: 0;
+}
+
+.parent-link {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 6px 8px;
+  border: 0;
+  border-left: 3px solid var(--border-strong);
+  background: var(--surface-sunken);
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: left;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.estimate-input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.estimate-presets {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.estimate-presets .is-on {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.tag-picker {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.editor-subtasks {
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.editor-subtasks li button {
+  display: block;
+  width: 100%;
+  padding: 5px 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  text-align: left;
+  font-size: 13px;
+}
+
+.editor-subtasks li button:hover {
+  color: var(--accent);
+}
+
+.editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.editor-stamp {
+  color: var(--text-faint);
+  font-size: 12px;
+}
+
+/* --- トースト・ダイアログ --- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  /* 種類の編集のように開いたまま操作するダイアログでも、取り消しを押せるよう上に出す */
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(560px, calc(100vw - 32px));
+  padding: 8px 10px 8px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 18%);
+  font-size: 13px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  background: rgb(10 12 16 / 45%);
+  padding: 16px;
+}
+
+.modal {
+  width: min(420px, 100%);
+  padding: 18px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+}
+
+.modal-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.modal-body {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.drag-preview {
+  width: 280px;
+  opacity: 0.95;
+  cursor: grabbing;
+}
+
+/* --- 狭い画面 --- */
+
+@media (max-width: 900px) {
+  .topbar {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 8px 12px;
+  }
+
+  .search {
+    width: 100%;
+    order: 10;
+  }
+
+  .editor {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    z-index: 30;
+    border-left: 0;
+  }
+}
+
+/* --- 保存先の表示 --- */
+
+.save-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 4px;
+  color: var(--text-faint);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.save-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-faint);
+}
+
+.save-indicator.is-saved .save-dot {
+  background: var(--ok);
+}
+
+.save-indicator.is-saving .save-dot {
+  background: var(--warn);
+}
+
+.save-indicator.is-error {
+  color: var(--danger);
+}
+
+.save-indicator.is-error .save-dot {
+  background: var(--danger);
+}
+
+.save-time {
+  color: var(--text-faint);
+}
+
+@media (max-width: 1100px) {
+  .save-indicator {
+    display: none;
+  }
+}
+
+.save-indicator.is-conflict {
+  color: var(--warn);
+  gap: 8px;
+}
+
+.save-indicator.is-conflict .save-dot {
+  background: var(--warn);
+}
+
+/* --- タスクの背景色 --- */
+
+.color-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.color-swatches {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  background: var(--swatch);
+  cursor: pointer;
+}
+
+.color-swatch.is-none {
+  background: var(--surface);
+  color: var(--text-faint);
+  font-size: 11px;
+}
+
+.color-swatch.is-active {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.color-input {
+  flex-shrink: 0;
+  width: 34px;
+  height: 28px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.color-hex {
+  width: 96px;
+}
